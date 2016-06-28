@@ -1,72 +1,62 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace Microsoft.VisualStudio.Web
 {
     public class ProjectGuidParser
     {
-        public string GetProjectGuidFromWebConfig(string webConfig)
+        public const int DefaultBufferSize = 1024;
+        public const string ProjectGuidPrefix = "ProjectGuid:";
+        public Guid? GetProjectGuidFromWebConfig(Stream webConfig)
         {
-            string projectGuid = null;
-            XDocument document = GetXDocumentFromWebConfig(webConfig);
-            if (document != null)
-            {
-                projectGuid = GetGuidFromXDocument(document);
-            }
-
-            return projectGuid;
-        }
-
-        private XDocument GetXDocumentFromWebConfig(string webconfig)
-        {
-            XDocument document = null;
+            TextReader documentReader = null;
             try
             {
-                // If the path to the web.config is passed.
-                document = XDocument.Load(webconfig);
-            }
-            catch
-            {
-                try
+                using (documentReader = new StreamReader(webConfig, Encoding.UTF8, true, DefaultBufferSize, false))
                 {
-                    // If the content of the web.config is passed instead of the path.
-                    document = XDocument.Parse(webconfig);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-
-            return document;
-        }
-
-        private string GetGuidFromXDocument(XDocument document)
-        {
-            XNode lastNode = null;
-            if (document != null)
-            {
-                lastNode = document.LastNode;
-            }
-
-            // if the last node is of type comment get the comment.
-            if (lastNode != null && lastNode.NodeType == System.Xml.XmlNodeType.Comment)
-            {
-                XComment projectGuidComment = lastNode as XComment;
-                if (projectGuidComment != null)
-                {
-                    string projectGuidValue = projectGuidComment.Value;
-                    if (projectGuidValue != null)
+                    XDocument document = null;
+                    document = XDocument.Load(documentReader);
+                    if (document != null)
                     {
-                        projectGuidValue = projectGuidValue.Replace("ProjectGuid:", string.Empty).Trim(' ');
-                        Guid projectGuid;
-                        bool success = Guid.TryParse(projectGuidValue, out projectGuid);
-                        if (success)
+                        XNode lastNode = document.LastNode;
+                        while (lastNode != null && lastNode.NodeType != XmlNodeType.EndElement && lastNode.NodeType != XmlNodeType.Element && lastNode.NodeType != XmlNodeType.XmlDeclaration)
                         {
-                            return string.Format("{0}", projectGuid);
+                            if (lastNode.NodeType == XmlNodeType.Comment)
+                            {
+                                XComment projectGuidComment = lastNode as XComment;
+                                if (projectGuidComment != null)
+                                {
+                                    string projectGuidValue = projectGuidComment.Value;
+                                    if (projectGuidValue != null)
+                                    {
+                                        bool isProjectGuidPrefixPresent = projectGuidValue.Trim().StartsWith(ProjectGuidPrefix, StringComparison.OrdinalIgnoreCase);
+                                        // if we find the ProjectGuid prefix, we always exit even if the value returned is not a valid Guid.
+                                        if (isProjectGuidPrefixPresent)
+                                        {
+                                            projectGuidValue = projectGuidValue.Replace(ProjectGuidPrefix, string.Empty).Trim(' ');
+                                            Guid projectGuid;
+                                            bool success = Guid.TryParse(projectGuidValue, out projectGuid);
+                                            if (success)
+                                            {
+                                                return projectGuid;
+                                            }
+
+                                            return null;
+                                        }
+                                    }
+                                }
+                            }
+
+                            lastNode = lastNode.PreviousNode;
                         }
                     }
                 }
+            }
+            catch
+            {
             }
 
             return null;

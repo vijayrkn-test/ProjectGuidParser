@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmptyWebConfig" xml:space="preserve">
+    <value />
+  </data>
   <data name="InvalidProjectGuid" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;configuration&gt;
@@ -136,6 +139,9 @@
   </data>
   <data name="InvalidWebConfig" xml:space="preserve">
     <value>&lt;InvalidXmlNoCLosingTag&gt;</value>
+  </data>
+  <data name="InvalidWebConfigWithOnlyProjectGuid" xml:space="preserve">
+    <value>&lt;!--ProjectGuid: F535E3E2-737D-422D-A529-D79D43FB4F5E--&gt;</value>
   </data>
   <data name="LastNodeInvalidComment" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
@@ -289,5 +295,32 @@
   &lt;/system.webServer&gt;
 &lt;/configuration&gt;
 &lt;!--ProjectGuid: F535E3E2-737D-422D-A529-D79D43FB4F5E--&gt;</value>
+  </data>
+  <data name="ValidWebConfigWithOnlyProjectGuid" xml:space="preserve">
+    <value>&lt;configuration/&gt;
+&lt;!--ProjectGuid: F535E3E2-737D-422D-A529-D79D43FB4F5E--&gt;</value>
+  </data>
+  <data name="WebConfigWithOnlyDeclaration" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;</value>
+  </data>
+  <data name="WebConfigWithOnlySelfClosingTag" xml:space="preserve">
+    <value>&lt;configuration/&gt;</value>
+  </data>
+  <data name="WebConfigWithProjectGuidRemoved" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;configuration&gt;
+
+  &lt;!--
+    Configure your application settings in appsettings.json. Learn more at http://go.microsoft.com/fwlink/?LinkId=786380
+  --&gt;
+
+  &lt;system.webServer&gt;
+    &lt;handlers&gt;
+      &lt;add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModule" resourceType="Unspecified"/&gt;
+    &lt;/handlers&gt;
+    &lt;aspNetCore processPath="%LAUNCHER_PATH%" arguments="%LAUNCHER_ARGS%" stdoutLogEnabled="false" stdoutLogFile=".\logs\stdout" forwardWindowsAuthToken="false"/&gt;
+  &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+&lt;!--ProjectGuid: --&gt;</value>
   </data>
 </root>

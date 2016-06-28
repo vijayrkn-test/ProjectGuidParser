@@ -61,6 +61,15 @@ namespace ProjectGuidParserTests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string EmptyWebConfig {
+            get {
+                return ResourceManager.GetString("EmptyWebConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;configuration&gt;
         ///
@@ -86,6 +95,15 @@ namespace ProjectGuidParserTests {
         internal static string InvalidWebConfig {
             get {
                 return ResourceManager.GetString("InvalidWebConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!--ProjectGuid: F535E3E2-737D-422D-A529-D79D43FB4F5E--&gt;.
+        /// </summary>
+        internal static string InvalidWebConfigWithOnlyProjectGuid {
+            get {
+                return ResourceManager.GetString("InvalidWebConfigWithOnlyProjectGuid", resourceCulture);
             }
         }
         
@@ -266,6 +284,54 @@ namespace ProjectGuidParserTests {
         internal static string ValidProjectGuid {
             get {
                 return ResourceManager.GetString("ValidProjectGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;configuration/&gt;
+        ///&lt;!--ProjectGuid: F535E3E2-737D-422D-A529-D79D43FB4F5E--&gt;.
+        /// </summary>
+        internal static string ValidWebConfigWithOnlyProjectGuid {
+            get {
+                return ResourceManager.GetString("ValidWebConfigWithOnlyProjectGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;.
+        /// </summary>
+        internal static string WebConfigWithOnlyDeclaration {
+            get {
+                return ResourceManager.GetString("WebConfigWithOnlyDeclaration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;configuration/&gt;.
+        /// </summary>
+        internal static string WebConfigWithOnlySelfClosingTag {
+            get {
+                return ResourceManager.GetString("WebConfigWithOnlySelfClosingTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;configuration&gt;
+        ///
+        ///  &lt;!--
+        ///    Configure your application settings in appsettings.json. Learn more at http://go.microsoft.com/fwlink/?LinkId=786380
+        ///  --&gt;
+        ///
+        ///  &lt;system.webServer&gt;
+        ///    &lt;handlers&gt;
+        ///      &lt;add name=&quot;aspNetCore&quot; path=&quot;*&quot; verb=&quot;*&quot; modules=&quot;AspNetCoreModule&quot; resourceType=&quot;Unspecified&quot;/&gt;
+        ///    &lt;/handlers&gt;
+        ///    &lt;aspNetCore processPath=&quot;%LAUNCHER_PATH%&quot; arguments=&quot;%LAUNCHER_ARGS%&quot; stdoutLogEnabled=&quot;false&quot; stdoutLogFile=&quot;.\logs\stdout&quot; forwardWindowsAuthToken=&quot;f [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WebConfigWithProjectGuidRemoved {
+            get {
+                return ResourceManager.GetString("WebConfigWithProjectGuidRemoved", resourceCulture);
             }
         }
     }

@@ -71,7 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SampleWebConfigs\Encrypted\web.config" />
     <None Include="SampleWebConfigs\invalid.config" />
+    <None Include="SampleWebConfigs\utf16lebom\web.config" />
+    <None Include="SampleWebConfigs\utf16bebom\web.config" />
     <None Include="SampleWebConfigs\web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,7 @@
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
